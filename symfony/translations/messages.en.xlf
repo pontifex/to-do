@@ -141,9 +141,9 @@
                 <source>action.create_post</source>
                 <target>Create a new post</target>
             </trans-unit>
-            <trans-unit id="label.create_post">
-                <source>label.create_post</source>
-                <target>Create post</target>
+            <trans-unit id="label.create_task">
+                <source>label.create_task</source>
+                <target>Create task</target>
             </trans-unit>
             <trans-unit id="label.save_and_create_new">
                 <source>label.save_and_create_new</source>
@@ -173,6 +173,10 @@
             <trans-unit id="label.title">
                 <source>label.title</source>
                 <target>Title</target>
+            </trans-unit>
+            <trans-unit id="label.description">
+                <source>label.description</source>
+                <target>Description</target>
             </trans-unit>
             <trans-unit id="label.author">
                 <source>label.author</source>
@@ -214,9 +218,9 @@
                 <source>label.actions</source>
                 <target>Actions</target>
             </trans-unit>
-            <trans-unit id="title.post_new">
-                <source>title.post_new</source>
-                <target>Post creation</target>
+            <trans-unit id="title.task_new">
+                <source>title.task_new</source>
+                <target>Task creation</target>
             </trans-unit>
             <trans-unit id="action.edit_contents">
                 <source>action.edit_contents</source>
@@ -280,9 +284,9 @@
                 <source>post.no_posts_found</source>
                 <target>No posts found.</target>
             </trans-unit>
-            <trans-unit id="post.created_successfully">
-                <source>post.created_successfully</source>
-                <target>Post created successfully!</target>
+            <trans-unit id="task.created_successfully">
+                <source>task.created_successfully</source>
+                <target>Task created successfully!</target>
             </trans-unit>
             <trans-unit id="post.updated_successfully">
                 <source>post.updated_successfully</source>
@@ -373,6 +377,10 @@
             <trans-unit id="status.status">
                 <source>status.attribute</source>
                 <target>Status</target>
+            </trans-unit>
+            <trans-unit id="label.add.task">
+                <source>label.add.task</source>
+                <target>Add task</target>
             </trans-unit>
         </body>
     </file>

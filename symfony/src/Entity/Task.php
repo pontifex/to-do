@@ -33,6 +33,10 @@ class Task implements Translatable
      *
      * @ORM\Column(type="string", length=180)
      * @Gedmo\Translatable
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 180
+     * )
      */
     private $title;
 
@@ -74,12 +78,12 @@ class Task implements Translatable
         $this->title = $title;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
