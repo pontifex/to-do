@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'blog_task_show' %}
+
+{% block main %}
+    Details page
+    <h1>{{ task.id }}</h1>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
