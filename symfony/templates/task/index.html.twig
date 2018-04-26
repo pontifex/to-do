@@ -7,9 +7,10 @@
         <article class="post">
             <h2>
                 <a href="{{ path('task_show', {id: task.id}) }}">
-                    {{ task.id }}
+                    {{ task.title }}
                 </a>
             </h2>
+            Status: {{ task.status }}
         </article>
     {% endfor %}
 
