@@ -16,3 +16,12 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+    gedmo.listener.translatable:
+        class: Gedmo\Translatable\TranslatableListener
+        tags:
+          name: doctrine.event_subscriber
+          connection: default
+        calls:
+          - [setAnnotationReader, ['@annotation_reader']]
+          - [setTranslatableLocale, ["@=service('request_stack').getCurrentRequest() ? service('request_stack').getCurrentRequest().getLocale() : 'en'"]]
+          - [setTranslationFallback, [false]]

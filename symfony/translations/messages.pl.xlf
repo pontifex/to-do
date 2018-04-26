@@ -275,6 +275,22 @@
                 <source>help.more_information</source>
                 <target><![CDATA[Sprawdź <a href="https://symfony.com/doc">dokumentację Symfony</a>, aby uzyskać więcej informacji.]]></target>
             </trans-unit>
+            <trans-unit id="status.completed">
+                <source>Completed</source>
+                <target>Zakończony</target>
+            </trans-unit>
+            <trans-unit id="status.in.progress">
+                <source>In Progress</source>
+                <target>W trakcie</target>
+            </trans-unit>
+            <trans-unit id="status.todo">
+                <source>Todo</source>
+                <target>Do zrobienia</target>
+            </trans-unit>
+            <trans-unit id="status.status">
+                <source>status.attribute</source>
+                <target>Stan</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
