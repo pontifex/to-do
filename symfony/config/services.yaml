@@ -24,4 +24,4 @@ services:
         calls:
           - [setAnnotationReader, ['@annotation_reader']]
           - [setTranslatableLocale, ["@=service('request_stack').getCurrentRequest() ? service('request_stack').getCurrentRequest().getLocale() : 'en'"]]
-          - [setTranslationFallback, [false]]
+          - [setTranslationFallback, [true]]

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -40,5 +41,38 @@ class TaskController extends AbstractController
     public function taskShow(Task $task): Response
     {
         return $this->render('task/show.html.twig', ['task' => $task]);
+    }
+
+    /**
+     * Creates a new Task entity.
+     *
+     * @Route("/new", name="task_new")
+     * @Method({"GET", "POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $task = new Task();
+
+        $form = $this->createForm(TaskType::class, $task);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task->setStatus(Task::STATUS_TODO);
+            $task->setPublishedAt(new \DateTime());
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($task);
+            $manager->flush();
+
+            $this->addFlash('success', 'task.created_successfully');
+
+            return $this->redirectToRoute('task_index');
+        }
+
+        return $this->render('task/new.html.twig', [
+            'task' => $task,
+            'form' => $form->createView(),
+        ]);
     }
 }
