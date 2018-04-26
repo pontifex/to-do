@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'blog_index' %}
+
+{% block main %}
+    {% for task in tasks %}
+        <article class="post">
+            <h2>
+                <a href="{{ path('task_show', {id: task.id}) }}">
+                    {{ task.id }}
+                </a>
+            </h2>
+        </article>
+    {% endfor %}
+
+    {% if tasks.haveToPaginate %}
+        <div class="navigation text-center">
+            {{ pagerfanta(tasks, 'twitter_bootstrap3_translated', {routeName: 'task_index_paginated'}) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+
+    {{ show_source_code(_self) }}
+{% endblock %}
