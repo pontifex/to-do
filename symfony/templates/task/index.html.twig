@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body_id 'blog_index' %}
+{% block body_id 'task_index' %}
 
 {% block main %}
     {% for task in tasks %}
@@ -10,7 +10,7 @@
                     {{ task.title }}
                 </a>
             </h2>
-            Status: {{ task.status }}
+            {{ 'status.attribute'|trans }}: {{ task.status|trans }}
         </article>
     {% endfor %}
 

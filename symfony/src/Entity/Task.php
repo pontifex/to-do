@@ -4,14 +4,16 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  * @ORM\Table(name="todo_task")
  */
-class Task
+class Task implements Translatable
 {
-    public const NUM_ITEMS = 1;
+    public const NUM_ITEMS = 2;
 
     public const STATUS_TODO = 'Todo';
     public const STATUS_IN_PROGRESS = 'In Progress';
@@ -29,14 +31,16 @@ class Task
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=180)
+     * @Gedmo\Translatable
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
+     * @Gedmo\Translatable
      */
     private $description;
 
@@ -54,6 +58,11 @@ class Task
      * @Assert\DateTime
      */
     private $publishedAt;
+
+    /**
+     * @Gedmo\Locale
+     */
+    private $locale;
 
     public function getId(): int
     {
@@ -87,7 +96,7 @@ class Task
 
     public function setStatus(string $status): void
     {
-        if (!in_array($status, array(self::STATUS_TODO, self::STATUS_IN_PROGRESS. self::STATUS_COMPLETED))) {
+        if (!in_array($status, array(self::STATUS_TODO, self::STATUS_IN_PROGRESS, self::STATUS_COMPLETED))) {
             throw new \InvalidArgumentException("Invalid status");
         }
 
@@ -102,5 +111,10 @@ class Task
     public function setPublishedAt(?\DateTime $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

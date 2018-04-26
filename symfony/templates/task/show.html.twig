@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block body_id 'blog_task_show' %}
+{% block body_id 'task_show' %}
 
 {% block main %}
     <h1>{{ task.title }}</h1>
 
     <p class="task-metadata">
-        <span class="metadata"><i class="fa fa-calendar"></i> {{ task.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ task.publishedAt|date('Y-m-d H:i:s') }}</span>
     </p>
 
     {{ task.description|md2html }}
-    Status: {{ task.status }}
+    {{ 'status.attribute'|trans }}: {{ task.status|trans }}
 {% endblock %}
 
 {% block sidebar %}

@@ -350,7 +350,6 @@
                 <source>help.more_information</source>
                 <target><![CDATA[For more information, check out the <a href="https://symfony.com/doc">Symfony doc</a>.]]></target>
             </trans-unit>
-
             <trans-unit id="rss.title">
                 <source>rss.title</source>
                 <target>Symfony Demo blog</target>
@@ -358,6 +357,22 @@
             <trans-unit id="rss.description">
                 <source>rss.description</source>
                 <target>Most recent posts published on the Symfony Demo blog</target>
+            </trans-unit>
+            <trans-unit id="status.completed">
+                <source>Completed</source>
+                <target>Completed</target>
+            </trans-unit>
+            <trans-unit id="status.in.progress">
+                <source>In Progress</source>
+                <target>In Progress</target>
+            </trans-unit>
+            <trans-unit id="status.todo">
+                <source>Todo</source>
+                <target>Todo</target>
+            </trans-unit>
+            <trans-unit id="status.status">
+                <source>status.attribute</source>
+                <target>Status</target>
             </trans-unit>
         </body>
     </file>
