@@ -3,8 +3,14 @@
 {% block body_id 'blog_task_show' %}
 
 {% block main %}
-    Details page
-    <h1>{{ task.id }}</h1>
+    <h1>{{ task.title }}</h1>
+
+    <p class="task-metadata">
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ task.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+    </p>
+
+    {{ task.description|md2html }}
+    Status: {{ task.status }}
 {% endblock %}
 
 {% block sidebar %}
