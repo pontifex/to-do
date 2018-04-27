@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,5 +75,41 @@ class TaskController extends AbstractController
             'task' => $task,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * Updates status of Task entity.
+     *
+     * @Route("/tasks/{taskId}", name="task_update_status")
+     * @Method({"PATCH"})
+     */
+    public function updateStatus(int $taskId, Request $request)
+    {
+        if ($request->request->get('status') === Task::STATUS_COMPLETED) {
+            $manager = $this->getDoctrine()->getManager();
+            $repository = $manager->getRepository(Task::class);
+
+            $task = $repository->find($taskId);
+
+            if ($task instanceof Task) {
+                /** @var Task $task */
+                $task->setStatus(Task::STATUS_COMPLETED);
+                $manager->persist($task);
+                $manager->flush();
+
+                return new JsonResponse(
+                    ['status' => 'success']
+                );
+            }
+        }
+
+        return new JsonResponse(
+            [
+                'status' => 'error',
+                'messages' => [
+                    'status' => 'Not valid or missing'
+                ]
+            ]
+        );
     }
 }
