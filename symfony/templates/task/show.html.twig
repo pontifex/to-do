@@ -11,6 +11,31 @@
 
     {{ task.description|md2html }}
     {{ 'status.attribute'|trans }}: {{ task.status|trans }}
+
+    {% if task.status != 'Completed' %}
+    <button id="update-task">{{ 'label.set.completed'|trans }}</button>
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $("#update-task").click(function() {
+                that = $(this);
+                $.ajax({
+                    url:'{{ (path('task_update_status', {taskId: task.id})) }}',
+                    type: 'PATCH',
+                    dataType: 'json',
+                    data: {'status': 'Completed'},
+                    async: true,
+                    success: function (data)
+                    {
+                        $('#update-task').toggle();
+
+                    }
+                });
+                return false;
+            });
+        </script>
+    {% endblock %}
+    {% endif %}
 {% endblock %}
 
 {% block sidebar %}
