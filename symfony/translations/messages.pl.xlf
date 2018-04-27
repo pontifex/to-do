@@ -299,6 +299,10 @@
                 <source>label.add.task</source>
                 <target>Dodaj zadanie</target>
             </trans-unit>
+            <trans-unit id="label.set.completed">
+                <source>label.set.completed</source>
+                <target>Zakończ</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
