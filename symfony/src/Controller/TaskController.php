@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
+use Gedmo\Translatable\Entity\Translation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -22,6 +23,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TaskController extends AbstractController
 {
+    /** @var string */
+    private $defaultLocale;
+
+    /** @var string */
+    private $locales;
+
+    public function __construct(string $defaultLocale, string $locales)
+    {
+        $this->defaultLocale = $defaultLocale;
+        $this->locales = $locales;
+    }
+
     /**
      * @Route("/", defaults={"page": "1", "_format"="html"}, name="task_index")
      * @Route("/page/{page}", defaults={"_format"="html"}, requirements={"page": "[1-9]\d*"}, name="task_index_paginated")
@@ -52,17 +65,41 @@ class TaskController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $task = new Task();
+        $locales = explode('|', $this->locales);
 
-        $form = $this->createForm(TaskType::class, $task);
+        $task = new Task();
+        $task->setTranslatableLocale('en');
+
+        $form = $this->createForm(TaskType::class, $task,
+            [
+                'locales' => $locales,
+                'defaultLocale' => $this->defaultLocale
+            ]
+        );
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+
             $task->setStatus(Task::STATUS_TODO);
             $task->setPublishedAt(new \DateTime());
 
-            $manager = $this->getDoctrine()->getManager();
+            /** @var \Gedmo\Translatable\Entity\Repository\TranslationRepository $repository */
+            $repository = $manager->getRepository(Translation::class);
+
+            foreach ($locales as $locale) {
+                if ($locale != $this->defaultLocale) {
+                    $titleLocale = $form->get('title_' . $locale)->getData();
+                    $descriptionLocale = $form->get('description_' . $locale)->getData();
+
+                    if (! empty($titleLocale) || ! empty($descriptionLocale)) {
+                        $repository->translate($task, 'title', $locale, $titleLocale);
+                        $repository->translate($task, 'description', $locale, $descriptionLocale);
+                    }
+                }
+            }
+
             $manager->persist($task);
             $manager->flush();
 
@@ -74,6 +111,8 @@ class TaskController extends AbstractController
         return $this->render('task/new.html.twig', [
             'task' => $task,
             'form' => $form->createView(),
+            'locales' => $locales,
+            'defaultLocale' => $this->defaultLocale
         ]);
     }
 

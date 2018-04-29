@@ -6,8 +6,16 @@
     <h1>{{ 'title.task_new'|trans }}</h1>
 
     {{ form_start(form) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.description) }}
+
+    {% for locale in locales %}
+        {% if locale == defaultLocale %}
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+        {% else %}
+            {{ form_row(attribute(form, 'title_' ~ locale)) }}
+            {{ form_row(attribute(form, 'description_' ~ locale)) }}
+        {% endif %}
+    {% endfor %}
 
     <button type="submit" class="btn btn-primary">
         <i class="fa fa-save" aria-hidden="true"></i> {{ 'label.create_task'|trans }}

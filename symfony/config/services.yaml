@@ -13,6 +13,9 @@ services:
     App\:
         resource: '../src/*'
         exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
+    App\Controller\TaskController:
+        class:    'App\Controller\TaskController'
+        arguments:    ['%locale%', '%app_locales%']
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
