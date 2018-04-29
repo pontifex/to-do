@@ -133,9 +133,17 @@
                 <source>label.title</source>
                 <target>Tytuł</target>
             </trans-unit>
+            <trans-unit id="label.title.pl">
+                <source>label.title.pl</source>
+                <target>Tytuł po polsku</target>
+            </trans-unit>
             <trans-unit id="label.description">
                 <source>label.description</source>
                 <target>Opis</target>
+            </trans-unit>
+            <trans-unit id="label.description.pl">
+                <source>label.description.pl</source>
+                <target>Opis po polsku</target>
             </trans-unit>
             <trans-unit id="label.author">
                 <source>label.author</source>
