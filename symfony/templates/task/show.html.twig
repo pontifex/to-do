@@ -13,7 +13,15 @@
     {{ 'status.attribute'|trans }}: {{ task.status|trans }}
 
     {% if task.status != 'Completed' %}
-    <button id="update-task">{{ 'label.set.completed'|trans }}</button>
+        <button id="update-task">{{ 'label.set.completed'|trans }}</button>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+{% if task.status != 'Completed' %}
     {% block javascripts %}
         {{ parent() }}
         <script>
@@ -35,9 +43,4 @@
             });
         </script>
     {% endblock %}
-    {% endif %}
-{% endblock %}
-
-{% block sidebar %}
-    {{ parent() }}
-{% endblock %}
+{% endif %}
