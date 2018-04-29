@@ -174,9 +174,17 @@
                 <source>label.title</source>
                 <target>Title</target>
             </trans-unit>
+            <trans-unit id="label.title.pl">
+                <source>label.title.pl</source>
+                <target>Title in polish</target>
+            </trans-unit>
             <trans-unit id="label.description">
                 <source>label.description</source>
                 <target>Description</target>
+            </trans-unit>
+            <trans-unit id="label.description.pl">
+                <source>label.description.pl</source>
+                <target>Description in polish</target>
             </trans-unit>
             <trans-unit id="label.author">
                 <source>label.author</source>
