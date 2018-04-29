@@ -22,8 +22,8 @@ class TaskRepository extends ServiceEntityRepository
             ->createQuery('
                 SELECT t
                 FROM App:Task t
-                WHERE t.publishedAt <= :now
-                ORDER BY t.publishedAt DESC
+                WHERE t.updatedAt <= :now
+                ORDER BY t.updatedAt DESC
             ')
             ->setParameter('now', new \DateTime())
         ;

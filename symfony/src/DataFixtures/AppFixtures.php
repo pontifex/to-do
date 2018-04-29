@@ -19,13 +19,14 @@ class AppFixtures extends Fixture
         /** @var \Gedmo\Translatable\Entity\Repository\TranslationRepository $repository */
         $repository = $manager->getRepository(Translation::class);
 
-        foreach ($this->getTaskData() as [$titleEn, $titlePl, $descriptionEn, $descriptionPl, $publishedAt, $status]) {
+        foreach ($this->getTaskData() as [$titleEn, $titlePl, $descriptionEn, $descriptionPl, $createdAt, $status]) {
             $task = new Task();
             $task->setTranslatableLocale('en');
             $task->setTitle($titleEn);
             $task->setDescription($descriptionEn);
             $task->setStatus($status);
-            $task->setPublishedAt($publishedAt);
+            $task->setCreatedAt($createdAt);
+            $task->setUpdatedAt($createdAt);
 
             $repository->translate($task, 'title', 'pl', $titlePl);
             $repository->translate($task, 'description', 'pl', $descriptionPl);
@@ -76,6 +77,30 @@ class AppFixtures extends Fixture
                 'Tytuł piątego zadania',
                 'Description of fifth task goes here.',
                 'Opis piatego zadania umieszczę tutaj',
+                new \DateTime(),
+                Task::STATUS_TODO
+            ],
+            [
+                'Sixth task title',
+                'Tytuł szóstego zadania',
+                'Description of sixth task goes here.',
+                'Opis szóstego zadania umieszczę tutaj',
+                new \DateTime(),
+                Task::STATUS_TODO
+            ],
+            [
+                'Seventh task title',
+                'Tytuł siódmego zadania',
+                'Description of seventh task goes here.',
+                'Opis siódmego zadania umieszczę tutaj',
+                new \DateTime(),
+                Task::STATUS_TODO
+            ],
+            [
+                'Eight task title',
+                'Tytuł ósmego zadania',
+                'Description of eight task goes here.',
+                'Opis ósmego zadania umieszczę tutaj',
                 new \DateTime(),
                 Task::STATUS_TODO
             ],

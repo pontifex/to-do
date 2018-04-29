@@ -83,7 +83,8 @@ class TaskController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
 
             $task->setStatus(Task::STATUS_TODO);
-            $task->setPublishedAt(new \DateTime());
+            $task->setCreatedAt(new \DateTime());
+            $task->setUpdatedAt(new \DateTime());
 
             /** @var \Gedmo\Translatable\Entity\Repository\TranslationRepository $repository */
             $repository = $manager->getRepository(Translation::class);

@@ -13,7 +13,7 @@ use Gedmo\Translatable\Translatable;
  */
 class Task implements Translatable
 {
-    public const NUM_ITEMS = 2;
+    public const NUM_ITEMS = 3;
 
     public const STATUS_TODO = 'Todo';
     public const STATUS_IN_PROGRESS = 'In Progress';
@@ -61,7 +61,15 @@ class Task implements Translatable
      * @ORM\Column(type="datetime")
      * @Assert\DateTime
      */
-    private $publishedAt;
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     * @Assert\DateTime
+     */
+    private $updatedAt;
 
     /**
      * @Gedmo\Locale
@@ -107,14 +115,24 @@ class Task implements Translatable
         $this->status = $status;
     }
 
-    public function getPublishedAt(): \DateTime
+    public function getCreatedAt(): \DateTime
     {
-        return $this->publishedAt;
+        return $this->createdAt;
     }
 
-    public function setPublishedAt(?\DateTime $publishedAt): void
+    public function setCreatedAt(?\DateTime $createdAt): void
     {
-        $this->publishedAt = $publishedAt;
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     public function setTranslatableLocale($locale)

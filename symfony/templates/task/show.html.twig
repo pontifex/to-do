@@ -6,11 +6,12 @@
     <h1>{{ task.title }}</h1>
 
     <p class="task-metadata">
-        <span class="metadata"><i class="fa fa-calendar"></i> {{ task.publishedAt|date('Y-m-d H:i:s') }}</span>
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ task.createdAt|date('Y-m-d H:i:s') }}</span>
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ task.updatedAt|date('Y-m-d H:i:s') }}</span>
     </p>
 
     {{ task.description|md2html }}
-    {{ 'status.attribute'|trans }}: {{ task.status|trans }}
+    <span id="status">{{ 'status.attribute'|trans }}: {{ task.status|trans }}</span>
 
     {% if task.status != 'Completed' %}
         <button id="update-task">{{ 'label.set.completed'|trans }}</button>
@@ -36,7 +37,7 @@
                     success: function (data)
                     {
                         $('#update-task').toggle();
-
+                        $('#status').html('{{ 'status.attribute'|trans }}: {{ 'Completed'|trans }}');
                     }
                 });
                 return false;
