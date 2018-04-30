@@ -28,3 +28,6 @@ services:
           - [setAnnotationReader, ['@annotation_reader']]
           - [setTranslatableLocale, ["@=service('request_stack').getCurrentRequest() ? service('request_stack').getCurrentRequest().getLocale() : 'en'"]]
           - [setTranslationFallback, [true]]
+    App\Service\TaskService:
+        class: App\Service\TaskService
+        arguments:    ['@doctrine.orm.entity_manager']

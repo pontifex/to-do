@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
-use Gedmo\Translatable\Entity\Translation;
+use App\Service\TaskService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,8 +25,12 @@ class TaskController extends AbstractController
     /** @var string */
     private $locales;
 
-    public function __construct(string $defaultLocale, string $locales)
+    /** @var TaskService */
+    private $service;
+
+    public function __construct(TaskService $service, string $defaultLocale, string $locales)
     {
+        $this->service = $service;
         $this->defaultLocale = $defaultLocale;
         $this->locales = $locales;
     }
@@ -76,29 +80,20 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
-
-            $task->setStatus(Task::STATUS_TODO);
-            $task->setCreatedAt(new \DateTime());
-            $task->setUpdatedAt(new \DateTime());
-
-            /** @var \Gedmo\Translatable\Entity\Repository\TranslationRepository $repository */
-            $repository = $manager->getRepository(Translation::class);
-
+            $localizedData = [];
             foreach ($locales as $locale) {
                 if ($locale !== $this->defaultLocale) {
                     $titleLocale = $form->get('title_'.$locale)->getData();
                     $descriptionLocale = $form->get('description_'.$locale)->getData();
 
                     if (!empty($titleLocale) || !empty($descriptionLocale)) {
-                        $repository->translate($task, 'title', $locale, $titleLocale);
-                        $repository->translate($task, 'description', $locale, $descriptionLocale);
+                        $localizedData[$locale]['title'] = $titleLocale;
+                        $localizedData[$locale]['description'] = $descriptionLocale;
                     }
                 }
             }
 
-            $manager->persist($task);
-            $manager->flush();
+            $this->service->addTask($task, $localizedData);
 
             $this->addFlash('success', 'task.created_successfully');
 
@@ -122,21 +117,11 @@ class TaskController extends AbstractController
     public function updateStatus(int $taskId, Request $request)
     {
         if (Task::STATUS_COMPLETED === $request->request->get('status')) {
-            $manager = $this->getDoctrine()->getManager();
-            $repository = $manager->getRepository(Task::class);
+            $this->service->updateStatus($taskId, Task::STATUS_COMPLETED);
 
-            $task = $repository->find($taskId);
-
-            if ($task instanceof Task) {
-                /* @var Task $task */
-                $task->setStatus(Task::STATUS_COMPLETED);
-                $manager->persist($task);
-                $manager->flush();
-
-                return new JsonResponse(
-                    ['status' => 'success']
-                );
-            }
+            return new JsonResponse(
+                ['status' => 'success']
+            );
         }
 
         return new JsonResponse(
