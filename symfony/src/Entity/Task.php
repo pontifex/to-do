@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
@@ -108,8 +108,8 @@ class Task implements Translatable
 
     public function setStatus(string $status): void
     {
-        if (!in_array($status, array(self::STATUS_TODO, self::STATUS_IN_PROGRESS, self::STATUS_COMPLETED))) {
-            throw new \InvalidArgumentException("Invalid status");
+        if (!in_array($status, [self::STATUS_TODO, self::STATUS_IN_PROGRESS, self::STATUS_COMPLETED], true)) {
+            throw new \InvalidArgumentException('Invalid status');
         }
 
         $this->status = $status;

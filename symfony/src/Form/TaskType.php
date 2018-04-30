@@ -34,15 +34,15 @@ class TaskType extends AbstractType
                 continue;
             }
 
-            $builder->add('title_' . $locale, null, [
+            $builder->add('title_'.$locale, null, [
                 'mapped' => false,
-                'label' => 'label.title.' . $locale,
-                'required' => false
+                'label' => 'label.title.'.$locale,
+                'required' => false,
                 ])
-                ->add('description_' . $locale, null, [
+                ->add('description_'.$locale, null, [
                     'mapped' => false,
-                    'label' => 'label.description.' . $locale,
-                    'required' => false
+                    'label' => 'label.description.'.$locale,
+                    'required' => false,
                 ]);
         }
     }
