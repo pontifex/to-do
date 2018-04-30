@@ -46,7 +46,7 @@ class AppFixtures extends Fixture
                 'Description of first task goes here.',
                 'Opis pierwszego zadania umieszczę tutaj',
                 new \DateTime(),
-                Task::STATUS_COMPLETED
+                Task::STATUS_COMPLETED,
             ],
             [
                 'Second task title',
@@ -54,7 +54,7 @@ class AppFixtures extends Fixture
                 'Description of second task goes here.',
                 'Opis drugiego zadania umieszczę tutaj',
                 new \DateTime(),
-                Task::STATUS_IN_PROGRESS
+                Task::STATUS_IN_PROGRESS,
             ],
             [
                 'Third task title',
@@ -62,7 +62,7 @@ class AppFixtures extends Fixture
                 'Description of third task goes here.',
                 'Opis trzeciego zadania umieszczę tutaj',
                 new \DateTime(),
-                Task::STATUS_TODO
+                Task::STATUS_TODO,
             ],
             [
                 'Fourth task title',
@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
                 'Description of fourth task goes here.',
                 'Opis czwartego zadania umieszczę tutaj',
                 new \DateTime(),
-                Task::STATUS_TODO
+                Task::STATUS_TODO,
             ],
             [
                 'Fifth task title',
@@ -78,7 +78,7 @@ class AppFixtures extends Fixture
                 'Description of fifth task goes here.',
                 'Opis piatego zadania umieszczę tutaj',
                 new \DateTime(),
-                Task::STATUS_TODO
+                Task::STATUS_TODO,
             ],
             [
                 'Sixth task title',
@@ -86,7 +86,7 @@ class AppFixtures extends Fixture
                 'Description of sixth task goes here.',
                 'Opis szóstego zadania umieszczę tutaj',
                 new \DateTime(),
-                Task::STATUS_TODO
+                Task::STATUS_TODO,
             ],
             [
                 'Seventh task title',
@@ -94,7 +94,7 @@ class AppFixtures extends Fixture
                 'Description of seventh task goes here.',
                 'Opis siódmego zadania umieszczę tutaj',
                 new \DateTime(),
-                Task::STATUS_TODO
+                Task::STATUS_TODO,
             ],
             [
                 'Eight task title',
@@ -102,7 +102,7 @@ class AppFixtures extends Fixture
                 'Description of eight task goes here.',
                 'Opis ósmego zadania umieszczę tutaj',
                 new \DateTime(),
-                Task::STATUS_TODO
+                Task::STATUS_TODO,
             ],
         ];
     }
