@@ -1,20 +1,9 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace App\Twig;
 
-use App\Utils\Markdown;
 use Symfony\Component\Intl\Intl;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
@@ -29,24 +18,12 @@ use Twig\TwigFunction;
  */
 class AppExtension extends AbstractExtension
 {
-    private $parser;
     private $localeCodes;
     private $locales;
 
-    public function __construct(Markdown $parser, $locales)
+    public function __construct($locales)
     {
-        $this->parser = $parser;
         $this->localeCodes = explode('|', $locales);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('md2html', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
-        ];
     }
 
     /**
@@ -57,14 +34,6 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFunction('locales', [$this, 'getLocales']),
         ];
-    }
-
-    /**
-     * Transforms the given Markdown content into HTML content.
-     */
-    public function markdownToHtml(string $content): string
-    {
-        return $this->parser->toHtml($content);
     }
 
     /**

@@ -15,9 +15,14 @@ access to database use root:root credentials and command below to get IP:
 docker network inspect bridge | grep Gateway | grep -o -E '[0-9\.]+'
 ```
 
-To run unit and functional tests (functional tests uses develop database):
+To run functional tests (functional tests uses develop database):
 ```
-docker exec -i container_phpfpm vendor/bin/simple-phpunit
+docker exec -i container_phpfpm vendor/bin/simple-phpunit --group=functional --coverage-html ./var/report
+```
+
+To run unit tests (unit tests uses develop database):
+```
+docker exec -i container_phpfpm vendor/bin/simple-phpunit  --exclude-group=functional --coverage-html ./var/report
 ```
 
 To run php fixer:

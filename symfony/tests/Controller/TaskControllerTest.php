@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TaskControllerTest extends WebTestCase
 {
+    /**
+     * @group functional
+     */
     public function testIndex()
     {
         $client = static::createClient();
@@ -20,6 +23,9 @@ class TaskControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @group functional
+     */
     public function testTaskShow()
     {
         $client = static::createClient();

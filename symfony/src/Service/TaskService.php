@@ -44,17 +44,21 @@ class TaskService
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function updateStatus(string $taskId, string $status)
+    public function updateStatus(string $taskId, string $status): Task
     {
         $repository = $this->manager->getRepository(Task::class);
 
         $task = $repository->find($taskId);
 
-        if ($task instanceof Task) {
-            /* @var Task $task */
-            $task->setStatus($status);
-            $this->manager->persist($task);
-            $this->manager->flush();
+        if (! $task instanceof Task) {
+            throw new \LogicException('Task with provided id: ' . $taskId . ' does not exist');
         }
+
+        /* @var Task $task */
+        $task->setStatus($status);
+        $this->manager->persist($task);
+        $this->manager->flush();
+
+        return $task;
     }
 }
