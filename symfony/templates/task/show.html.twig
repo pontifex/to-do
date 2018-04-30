@@ -10,7 +10,7 @@
         <span class="metadata"><i class="fa fa-calendar"></i> {{ task.updatedAt|date('Y-m-d H:i:s') }}</span>
     </p>
 
-    {{ task.description|md2html }}
+    {{ task.description }}
     <span id="status">{{ 'status.attribute'|trans }}: {{ task.status|trans }}</span>
 
     {% if task.status != 'Completed' %}
